@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
             return;
 
         playerState = PlayerState.Ready;
+        print("ready");
     }
 
     public void Shot()
@@ -38,7 +39,9 @@ public class Player : MonoBehaviour
 
         playerState = PlayerState.Shot;
 
+        print("shot");
+
         playerFire.ShootArrow();
-        playerState = PlayerState.Idle;
+        Idle();
     }
 }
