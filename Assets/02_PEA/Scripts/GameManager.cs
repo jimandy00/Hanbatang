@@ -36,6 +36,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        FadeInOut.instance.FadeInOrOut(true);
+    }
+
     public Player GameStart()
     {
         if (isStart)
@@ -66,18 +71,18 @@ public class GameManager : MonoBehaviour
         PEA_UIManager.instance.ShowResultText(false);
     }
 
-    public void IntoPicture()
-    {
-        SceneManager.LoadScene(1);
-    }
-
     public void GameOver()
     {
         isStart = false;
     }
 
+    public void IntoPicture()
+    {
+
+    }
+
     public void GoToLobby()
     {
-        SceneManager.LoadScene(0);
+        FadeInOut.instance.FadeInOrOut(false, () => SceneManager.LoadScene(0));
     }
 }
