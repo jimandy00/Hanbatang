@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PJH_PlayerFire : MonoBehaviour
 {
+    GameObject g;
     GameObject arrow;
     // 화살
     public GameObject arrowSimple;
@@ -21,9 +22,10 @@ public class PJH_PlayerFire : MonoBehaviour
     private int arrowSpeed = 20;
     // 임시 게이지
     public Scrollbar point;
-    // 화살을 안쐈는가?
+    // 화살이 장전되었는가?
     bool B = false;
-    //
+    // PerfectZone 초기화
+    float currentTime = 0;
     // 게임시작 - Start
     // 준비 - Ready
     // 쏘기 - Shot
@@ -33,8 +35,7 @@ public class PJH_PlayerFire : MonoBehaviour
     {
         point.value = 0;
         arrow = arrowSimple;
-        //PerfectZone();
-        //StartCoroutine(PerfectZone());
+        
     }
 
     // Update is called once per frame
@@ -50,33 +51,37 @@ public class PJH_PlayerFire : MonoBehaviour
         //좌클릭시 발사 (양옆으로 핀다)
         if (Input.GetButtonDown("Fire1"))
         {
-            //arrow 발사
-                      
-            
             //게이지가 0.6 이상 0.7 이하일때 퍼펙트
             if (point.value >= 0.6 && point.value <= 0.7) 
             {
-                arrow.GetComponent<PJH_Arrow>().speed = 50;
+                float n = 50;
+                g.GetComponent<PJH_Arrow>().Shoot(n);
                 print("명중입니다!!");
                 // 성공했다는 코드 작성
             }
             else
             {
-                arrow.GetComponent<PJH_Arrow>().speed = 10;
+                float n = 10;
+                g.GetComponent<PJH_Arrow>().Shoot(n);
                 print("실패입니다!!");
                 // 실패했다는 코드 작성
             }
+
             B = false;
-            
+            // 자동 재장전
+            Invoke(nameof(Reload), 4);
+
         }
     }
 
+    
     //PerfectZone 움직이는 함수
     IEnumerator PerfectZone()
     {
         if (B == true)
         {
-            point.value = Mathf.PingPong(Time.time, 0.943f);
+            currentTime += Time.deltaTime;
+            point.value = Mathf.PingPong(currentTime, 0.943f);
             
             yield return new WaitForSecondsRealtime(0.01f);
         }        
@@ -86,47 +91,51 @@ public class PJH_PlayerFire : MonoBehaviour
     private void SelectArrow()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            
+        {            
             B = false;
-            point.value = 0f;
+            currentTime = 0;
+            point.value = 0;
             arrow = arrowSimple;
-            GameObject g = Instantiate(arrow);
-            g.transform.position = firePosition.position;
-            B = true;
+            Reload();            
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            
+        {            
             B = false;
-            point.value = 0f;
+            currentTime = 0;
+            point.value = 0;
             arrow = arrowFire;
-            GameObject g = Instantiate(arrow);
-            g.transform.position = firePosition.position;
-            B = true;
+            Reload();
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-          
+        {          
             B = false;
-            point.value = 0f;
+            currentTime = 0;
+            point.value = 0;
             arrow = arrowWater;
-            GameObject g = Instantiate(arrow);
-            g.transform.position = firePosition.position;
-            B = true;
+            Reload();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            
+        {            
             B = false;
-            point.value = 0f;
+            currentTime = 0;
+            point.value = 0;
             arrow = arrowDragon;
-            GameObject g = Instantiate(arrow);
-            g.transform.position = firePosition.position;
+            Reload();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
             B = true;
         }
 
     }
 
-    
+    private void Reload()
+    {
+        g = Instantiate(arrow);
+        g.transform.position = firePosition.position;
+        
+        //g.transform.forward = firePosition.forward;
+        
+    }
 }

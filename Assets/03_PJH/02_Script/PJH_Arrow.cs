@@ -5,25 +5,28 @@ using UnityEngine;
 public class PJH_Arrow : MonoBehaviour
 {
     // 화살 속도
-    public float speed = 20;
+    
 
     Rigidbody rb;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        
+        //print(rb == null);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //좌클릭시 발사
-        if (Input.GetButtonDown("Fire1"))
-        {
-            rb.isKinematic = false;
-            //arrow 발사
-            rb.AddForce(transform.forward * speed, ForceMode.Impulse);
-        }
+        
+    }
+    public void Shoot(float n)
+    {
+        if (rb == null)
+            rb = GetComponent<Rigidbody>();
+            
+        rb.isKinematic = false;
+        //arrow 발사
+        rb.AddForce(transform.forward * n, ForceMode.Impulse);        
     }
 
     private void OnTriggerEnter(Collider other)
