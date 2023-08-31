@@ -24,10 +24,14 @@ public class PJH_PlayerFire : MonoBehaviour
     // 화살을 안쐈는가?
     bool B = false;
     //
-    
+    // 게임시작 - Start
+    // 준비 - Ready
+    // 쏘기 - Shot
+    // 화살 변경 - Change
 
     void Start()
     {
+        point.value = 0;
         arrow = arrowSimple;
         //PerfectZone();
         //StartCoroutine(PerfectZone());
@@ -43,22 +47,22 @@ public class PJH_PlayerFire : MonoBehaviour
 
     private void ShootArrow()
     {
-        //좌클릭시 발사
+        //좌클릭시 발사 (양옆으로 핀다)
         if (Input.GetButtonDown("Fire1"))
         {
             //arrow 발사
                       
-
+            
             //게이지가 0.6 이상 0.7 이하일때 퍼펙트
             if (point.value >= 0.6 && point.value <= 0.7) 
             {
-                //g.GetComponent<PJH_Arrow>().speed = 50;
+                arrow.GetComponent<PJH_Arrow>().speed = 50;
                 print("명중입니다!!");
                 // 성공했다는 코드 작성
             }
             else
             {
-                //g.GetComponent<PJH_Arrow>().speed = 10;
+                arrow.GetComponent<PJH_Arrow>().speed = 10;
                 print("실패입니다!!");
                 // 실패했다는 코드 작성
             }
@@ -75,8 +79,7 @@ public class PJH_PlayerFire : MonoBehaviour
             point.value = Mathf.PingPong(Time.time, 0.943f);
             
             yield return new WaitForSecondsRealtime(0.01f);
-        }
-        
+        }        
     }
     
     //화살 종류 선택
@@ -84,7 +87,7 @@ public class PJH_PlayerFire : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Destroy(arrow);
+            
             B = false;
             point.value = 0f;
             arrow = arrowSimple;
@@ -94,7 +97,7 @@ public class PJH_PlayerFire : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Destroy(arrow);
+            
             B = false;
             point.value = 0f;
             arrow = arrowFire;
@@ -104,7 +107,7 @@ public class PJH_PlayerFire : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            Destroy(arrow);
+          
             B = false;
             point.value = 0f;
             arrow = arrowWater;
@@ -114,7 +117,7 @@ public class PJH_PlayerFire : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            Destroy(arrow);
+            
             B = false;
             point.value = 0f;
             arrow = arrowDragon;
