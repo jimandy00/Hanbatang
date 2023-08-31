@@ -31,7 +31,7 @@ public class PEA_UIManager : MonoBehaviour
 
     void Start()
     {
-        ShowResultText(true);
+
     }
 
     void Update()

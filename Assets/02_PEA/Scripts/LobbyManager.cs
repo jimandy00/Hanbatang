@@ -19,8 +19,13 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        FadeInOut.instance.FadeInOrOut(true);
+    }
+
     public void IntoPicture()
     {
-        SceneManager.LoadScene(1);
+        FadeInOut.instance.FadeInOrOut(false, () => SceneManager.LoadScene(1));
     }
 }
