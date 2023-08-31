@@ -11,9 +11,13 @@ public class ClickImage : MonoBehaviour
     public Image imgGo02;
     public GameObject des;
 
+    public GameManager gm;
+
     RectTransform img01;
     RectTransform img02;
     RectTransform img03;
+
+    public GameObject typingGo;
 
 
     Text description;
@@ -31,6 +35,9 @@ public class ClickImage : MonoBehaviour
         //description.gameObject.SetActive(false);
 
         des.SetActive(false);
+        gm = new GameManager();
+        typingGo.SetActive(false);
+
     }
 
     void Update()
@@ -51,6 +58,7 @@ public class ClickImage : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha7))
             {
                 des.SetActive(true);
+                typingGo.SetActive(true);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha8))
             {
@@ -59,6 +67,7 @@ public class ClickImage : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Alpha9))
             {
                 // 게임 시작
+                gm.IntoPicture();
             }
 
         }
