@@ -9,10 +9,14 @@ using UnityEngine.UI;
 public class ClickImage : MonoBehaviour
 {
     public Image imgGo02;
+    public GameObject des;
 
     RectTransform img01;
     RectTransform img02;
     RectTransform img03;
+
+
+    Text description;
 
     List<RectTransform> imgList;
     
@@ -23,35 +27,60 @@ public class ClickImage : MonoBehaviour
 
     void Start()
     {
-        //img02 = GameObject.Find("Image02").
-        //img01 = GameObject.FindGameObjectsWithTag("Img")[0].GetComponent<RectTransform>();
-        //img02 = GameObject.FindGameObjectsWithTag("Img")[1].GetComponent<RectTransform>();
-        //img03 = GameObject.FindGameObjectsWithTag("Img")[2].GetComponent<RectTransform>();
+        //description = imgGo02.transform.GetChild(0).GetComponent<Text>();
+        //description.gameObject.SetActive(false);
 
-        //// imgList = [img01, img02, img03]
-        //imgList.Add(img01);
-        //imgList.Add(img02);
-        //imgList.Add(img03);
+        des.SetActive(false);
     }
 
     void Update()
     {
 
-        if(IsCliked == true && imgGo02.rectTransform.localScale.x <= 2.5f)
+        if (IsCliked == true)
         {
 
-            OnClickImgForward02();
+            if (imgGo02.rectTransform.localScale.x <= 2.5f)
+            {
+                ImgForward02();
+                print(imgState);
+            }
+        }
+
+        if (imgState == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                des.SetActive(true);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                des.SetActive(false);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                // 게임 시작
+            }
+
         }
     }
 
 
-    public void OnClickImgForward02()
+    public void OnClickImg02()
     {
         IsCliked = true;
-        imgState = true;
+
+    }
+
+    void ImgForward02()
+    {
 
         // 선택된 이미지의 크기를 키움
         imgGo02.rectTransform.localScale += Vector3.one * Time.deltaTime;
+        if (imgGo02.rectTransform.localScale.x >= 2.5f)
+        {
+            imgState = true;
+            IsCliked = false;
+        }
     }
 
 
