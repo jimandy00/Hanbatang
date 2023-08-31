@@ -23,7 +23,7 @@ public class client : MonoBehaviour
 
         using (NetworkStream stream = client.GetStream())
         {
-            using (FileStream fileStream = File.Create("received_file.png"))
+            using (FileStream fileStream = File.Create(Application.dataPath + "/Resources/received_file.png"))
             {
                 byte[] buffer = new byte[1024];
                 int bytesRead;
@@ -38,5 +38,4 @@ public class client : MonoBehaviour
 
         client.Close();
     }
-
 }

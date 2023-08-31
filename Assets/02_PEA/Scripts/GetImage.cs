@@ -3,52 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEditor;
 
 public class GetImage : MonoBehaviour
 {
     private Image downloadImage;
+    private Texture2D tex;
 
     private void Start()
     {
+        //StartCoroutine(RefreshAssetData());
         downloadImage = GetComponent<Image>();
-        OnClickGetImage();
     }
 
-
-    public void PostTest()
+    private void Update()
     {
-        HttpInfo info = new HttpInfo();
-        info.Set(RequestType.POST, "/sign_up", (DownloadHandler downloadHandler) =>
+        ShowReceivedFile();
+    }
+
+    private void ShowReceivedFile()
+    {
+        tex = Resources.Load("received_file") as Texture2D;
+        if (tex != null)
         {
-
-        });
-
-        SignUpInfo signUpInfo = new SignUpInfo();
-        signUpInfo.userName = "¹ÚÀº¾Æ";
-        signUpInfo.birthday = "20020509";
-        signUpInfo.age = 22;
-
-        info.body = JsonUtility.ToJson(signUpInfo);
-
-        HttpManager.Get().SendRequest(info);
+            downloadImage.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
+        }
     }
 
-    public void OnClickGetImage()
+    IEnumerator RefreshAssetData()
     {
-        //https://jsonplaceholder.typicode.com/photos
-
-        HttpInfo info = new HttpInfo();
-        info.Set(RequestType.TEXTURE, "https://img.seoul.co.kr/img/upload/2021/09/17/SSI_20210917150355.jpg", OnCompleteDownloadTexture, false);
-
-        HttpManager.Get().SendRequest(info);
-    }
-
-    private void OnCompleteDownloadTexture(DownloadHandler downloadHandler)
-    {
-        Texture2D texture = ((DownloadHandlerTexture)downloadHandler).texture;
-
-        downloadImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-        downloadImage.preserveAspect = true;
+        while (true)
+        {
+            print("refresh");
+            AssetDatabase.Refresh();
+            yield return new WaitForSeconds(1f);
+        }
     }
 }
 

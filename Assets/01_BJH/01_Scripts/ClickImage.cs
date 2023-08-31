@@ -37,7 +37,6 @@ public class ClickImage : MonoBehaviour
         des.SetActive(false);
         gm = new GameManager();
         typingGo.SetActive(false);
-
     }
 
     void Update()
