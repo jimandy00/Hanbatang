@@ -536,7 +536,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   successText: {fileID: 1658920121}
   failureText: {fileID: 540970400}
-  canvas: {fileID: 0}
+  changeText: {fileID: 0}
 --- !u!114 &1994810855
 MonoBehaviour:
   m_ObjectHideFlags: 0

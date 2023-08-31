@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
         isStart = false;
         playerFire.enabled = false;
         gauge.SetActive(false);
+        score.CheckTotalScore(successCount);
     }
 
     public void IntoPicture()

@@ -15,6 +15,8 @@ public class Do : MonoBehaviour
     private Player player = null;
     public ClickImage clickImage;
 
+    private bool isUpdate = false;
+
     private void Awake()
     {
         if(instance == null)
@@ -41,39 +43,57 @@ public class Do : MonoBehaviour
 
     private void Update()
     {
-        if (data.Contains("1") || data.Contains("2"))
+        if (isUpdate)
         {
-            player.ChangeArrow(int.Parse(data));
-        }
-        else
-        {
-            switch (data)
+            if (data.Contains("±âº»"))
             {
-                case "start":
-                    print("start");
-                    clickImage.OnClickImg02();
-                    break;
+                player.ChangeArrow(1);
+                isUpdate = false;
+            }
+            else if (data.Contains("fire")){
+                player.ChangeArrow(2);
+                isUpdate = false;
+            }
+            else
+            {
+                switch (data)
+                {
+                    case "start":
+                        isUpdate = false;
+                        if(SceneManager.GetActiveScene().buildIndex == 0)
+                        {
+                            clickImage.OnClickImg02();
+                        }
+                        else if(SceneManager.GetActiveScene().buildIndex == 1)
+                        {
+                            GameManager.instance.GoToLobby();
+                        }
+                        break;
 
-                case "ready":
-                    if (player != null)
-                    {
-                        player.Ready();
-                    }
-                    break;
+                    case "ready":
+                        isUpdate = false;
+                        if (player != null)
+                        {
+                            player.Ready();
+                        }
+                        break;
 
-                case "shot":
-                    if (player != null)
-                    {
-                        player.Shot();
-                    }
-                    break;
+                    case "shot":
+                        isUpdate = false;
+                        if (player != null)
+                        {
+                            player.Shot();
+                        }
+                        break;
 
-                case "change":
-                    if (player != null)
-                    {
-                        player.ChangeArrow();
-                    }
-                    break;
+                    case "change":
+                        isUpdate = false;
+                        if (player != null)
+                        {
+                            player.ChangeArrow();
+                        }
+                        break;
+                }
             }
         }
     }
@@ -82,6 +102,7 @@ public class Do : MonoBehaviour
 
     public void GetData(string data2)
     {
-        data = data2;        
+        data = data2;
+        isUpdate = true;
     }
 }

@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
+    private float scaleSpeed = 1f;
+    private float targetScale = 1f;
+    private float overScale = 1.2f;
+    private float rotateSpeed = 1050f;
+
     public GameObject scoreBoard;
     public GameObject score01;
     public GameObject score02;
@@ -16,7 +21,7 @@ public class Score : MonoBehaviour
 
     void Start()
     {
-        fianlScoreCheckBoard.SetActive(false);
+        //fianlScoreCheckBoard.SetActive(false);
     }
 
     // Update is called once per frame
@@ -64,14 +69,30 @@ public class Score : MonoBehaviour
     // 최종 점수 확인
     public void CheckTotalScore(int n)
     {
-        fianlScoreCheckBoard.SetActive(true);
+        //fianlScoreCheckBoard.SetActive(true);
         curScoreTxt.text = n.ToString();
+        StartCoroutine(coCTS());
     }
 
     // 최종 점수 UI 멋지게 등장하기
     IEnumerator coCTS()
     {
-        // 
+        Vector3 eulerAngle = fianlScoreCheckBoard.transform.eulerAngles;
+        while (fianlScoreCheckBoard.transform.localScale.x < overScale)
+        {
+            fianlScoreCheckBoard.transform.localScale += Vector3.one * scaleSpeed * Time.deltaTime;
+            eulerAngle.z += rotateSpeed * Time.deltaTime;
+            fianlScoreCheckBoard.transform.eulerAngles = eulerAngle;
+            yield return new WaitForEndOfFrame();
+        }
+
+        fianlScoreCheckBoard.transform.eulerAngles = Vector3.zero;
+
+        while (fianlScoreCheckBoard.transform.localScale.x > targetScale)
+        {
+            fianlScoreCheckBoard.transform.localScale -= Vector3.one * scaleSpeed * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
         yield return null;
     }
 }

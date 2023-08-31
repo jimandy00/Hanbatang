@@ -15,7 +15,7 @@ public class PEA_UIManager : MonoBehaviour
 
     public GameObject successText;
     public GameObject failureText;
-    public Canvas canvas;
+    public GameObject changeText;
 
     private void Awake()
     {
@@ -45,6 +45,22 @@ public class PEA_UIManager : MonoBehaviour
             return;
 
          coroutine = StartCoroutine(IShowResultText(isSuccess ? successText : failureText));
+    }
+
+    public void ShowChangeText()
+    {
+        if(coroutine == null)
+        {
+            coroutine = StartCoroutine(IShowChangeText(changeText));
+        }
+    }
+
+    public void DisappearChangeText()
+    {
+        if(coroutine == null)
+        {
+            coroutine = StartCoroutine(IDisappearChangeText(changeText));
+        }
     }
 
     IEnumerator IShowResultText(GameObject targetText)
@@ -77,5 +93,35 @@ public class PEA_UIManager : MonoBehaviour
 
         coroutine = null;
         yield return null;
+    }
+
+    IEnumerator IShowChangeText(GameObject targetText)
+    {
+        while (targetText.transform.localScale.x < overScale)
+        {
+            targetText.transform.localScale += Vector3.one * scaleSpeed * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        while (targetText.transform.localScale.x > targetScale)
+        {
+            targetText.transform.localScale -= Vector3.one * scaleSpeed * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    IEnumerator IDisappearChangeText(GameObject targetText)
+    {
+        while (targetText.transform.localScale.x < overScale)
+        {
+            targetText.transform.localScale += Vector3.one * scaleSpeed * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        while (targetText.transform.localScale.x > 0f)
+        {
+            targetText.transform.localScale -= Vector3.one * scaleSpeed * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
     }
 }

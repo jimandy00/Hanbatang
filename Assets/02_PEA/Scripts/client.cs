@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class client : MonoBehaviour
 {
-    private const string serverHost = "192.168.1.24"; // Replace with your server's IP address
+    private const string serverHost = "192.168.1.63"; // Replace with your server's IP address
     private const int serverPort = 5656;         // Replace with the server's port
 
     private Sprite receiveFileSprite;

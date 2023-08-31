@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public PlayerState playerState = PlayerState.Idle;
 
     public PJH_PlayerFire playerFire;
+    public GameObject changeText;
 
     private void Update()
     {
@@ -67,11 +68,13 @@ public class Player : MonoBehaviour
         if(arrowNum == 0)
         {
             playerState = PlayerState.ChangeArrow;
+            PEA_UIManager.instance.ShowChangeText();
         }
         else if (playerState == PlayerState.ChangeArrow)
         {
             playerFire.SelectArrow(arrowNum);
             playerState = PlayerState.Idle;
+            PEA_UIManager.instance.DisappearChangeText();
         }
     }
 }
