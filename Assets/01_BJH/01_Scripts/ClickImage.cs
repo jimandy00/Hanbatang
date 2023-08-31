@@ -17,6 +17,7 @@ public class ClickImage : MonoBehaviour
 
     public GameObject typingGo;
 
+    float speed = 5f;
 
     Image color;
 
@@ -100,12 +101,14 @@ public class ClickImage : MonoBehaviour
 
     IEnumerator CoImgMaxSize()
     {
-        print("이미지를 입장 사이즈로 변경하는 중1");
-        while (imgGo02.rectTransform.localScale.x <= 6.0f)
+        Vector3 dir = Camera.main.transform.position - imgGo02.transform.position;
+        dir.Normalize(); // 정규화. 벡터의 크기를 1로
+
+        while (imgGo02.transform.position.z > -3.5)
         {
-            print("이미지를 입장 사이즈로 변경하는 중2");
-            imgGo02.rectTransform.localScale += Vector3.one * Time.deltaTime;
-            c.a -= 0.1f * Time.deltaTime;
+            print("z : " + imgGo02.transform.position.z);
+            imgGo02.transform.position += dir * Time.deltaTime * speed;
+            c.a -= 0.3f * Time.deltaTime;
             color.color = c;
             yield return new WaitForEndOfFrame();
         }
