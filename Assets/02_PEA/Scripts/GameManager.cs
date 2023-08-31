@@ -58,6 +58,12 @@ public class GameManager : MonoBehaviour
     public void Success()
     {
         successCount++;
+        PEA_UIManager.instance.ShowResultText(true);
+    }
+
+    public void Failure()
+    {
+        PEA_UIManager.instance.ShowResultText(false);
     }
 
     public void IntoPicture()

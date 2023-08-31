@@ -30,25 +30,25 @@ public class Do : MonoBehaviour
     {
         switch (data)
         {
-            case "Start":
+            case "start":
                 // 이미지 선택 함수 호출하기
                 break;
 
-            case "Ready":
+            case "ready":
                 if(player != null)
                 {
                     player.Ready();
                 }
                 break;
 
-            case "Shoot":
+            case "shot":
                 if(player != null)
                 {
-                    player.Shoot();
+                    player.Shot();
                 }
                 break;
 
-            case "Change":
+            case "change":
                 break;
         }
     }

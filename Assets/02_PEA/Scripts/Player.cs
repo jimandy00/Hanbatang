@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     {
         Idle,
         Ready,
-        Shoot
+        Shot
     }
 
     public PlayerState playerState = PlayerState.Idle;
@@ -33,17 +33,17 @@ public class Player : MonoBehaviour
 
     public void Ready()
     {
-        if (playerState == PlayerState.Ready)
+        if (playerState != PlayerState.Idle)
             return;
 
         playerState = PlayerState.Ready;
     }
 
-    public void Shoot()
+    public void Shot()
     {
-        if (playerState == PlayerState.Shoot)
+        if (playerState != PlayerState.Ready)
             return;
 
-        playerState = PlayerState.Shoot;
+        playerState = PlayerState.Shot;
     }
 }
