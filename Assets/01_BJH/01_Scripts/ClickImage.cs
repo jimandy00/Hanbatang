@@ -17,6 +17,8 @@ public class ClickImage : MonoBehaviour
     RectTransform img02;
     RectTransform img03;
 
+    public GameObject typingGo;
+
 
     Text description;
 
@@ -34,6 +36,8 @@ public class ClickImage : MonoBehaviour
 
         des.SetActive(false);
         gm = new GameManager();
+        typingGo.SetActive(false);
+
     }
 
     void Update()
@@ -54,6 +58,7 @@ public class ClickImage : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha7))
             {
                 des.SetActive(true);
+                typingGo.SetActive(true);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha8))
             {
