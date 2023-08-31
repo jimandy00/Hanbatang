@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PJH_Arrow : MonoBehaviour
 {
-    // 화살 속도
-    
+        
+
 
     Rigidbody rb;
     void Start()
@@ -31,6 +31,7 @@ public class PJH_Arrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         Destroy(this.gameObject);
     }
 }
