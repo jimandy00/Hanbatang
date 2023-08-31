@@ -19,16 +19,6 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     public void IntoPicture()
     {
         SceneManager.LoadScene(1);

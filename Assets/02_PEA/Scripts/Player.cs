@@ -13,16 +13,6 @@ public class Player : MonoBehaviour
 
     public PlayerState playerState = PlayerState.Idle;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     public void Idle()
     {
         if (playerState == PlayerState.Idle)
