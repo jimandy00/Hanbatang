@@ -30,6 +30,9 @@ public class PJH_PlayerFire : MonoBehaviour
     // 준비 - Ready
     // 쏘기 - Shot
     // 화살 변경 - Change
+    public AudioSource audioSource01; // 활 당기기
+    public AudioSource audioSource02; // 활 쏘기
+
 
     void Start()
     {
@@ -51,10 +54,13 @@ public class PJH_PlayerFire : MonoBehaviour
         //좌클릭시 발사 (양옆으로 핀다)
         if (Input.GetButtonDown("Fire1"))
         {
+            audioSource02.Play();
+            print("오디오가 실행되었습니다.");
+            print("변지환 : " + audioSource02.name);
             //게이지가 0.6 이상 0.7 이하일때 퍼펙트
             if (point.value >= 0.6 && point.value <= 0.7) 
             {
-                float n = 50;
+                float n = 40;
                 g.GetComponent<PJH_Arrow>().Shoot(n);
                 print("명중입니다!!");
                 // 성공했다는 코드 작성
@@ -69,7 +75,7 @@ public class PJH_PlayerFire : MonoBehaviour
 
             B = false;
             // 자동 재장전
-            Invoke(nameof(Reload), 4);
+            Invoke(nameof(Reload), 3);
 
         }
     }
@@ -126,6 +132,9 @@ public class PJH_PlayerFire : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             B = true;
+            currentTime = 0;
+            point.value = 0;
+            audioSource01.Play();
         }
 
     }
