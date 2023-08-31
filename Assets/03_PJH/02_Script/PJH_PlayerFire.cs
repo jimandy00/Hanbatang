@@ -49,14 +49,13 @@ public class PJH_PlayerFire : MonoBehaviour
         StartCoroutine(PerfectZone()); 
     }
 
-    private void ShootArrow()
+    public  void ShootArrow()
     {
         //좌클릭시 발사 (양옆으로 핀다)
         if (Input.GetButtonDown("Fire1"))
         {
             audioSource02.Play();
-            print("오디오가 실행되었습니다.");
-            print("변지환 : " + audioSource02.name);
+            GameManager.instance.Shoot();
             //게이지가 0.6 이상 0.7 이하일때 퍼펙트
             if (point.value >= 0.6 && point.value <= 0.7) 
             {
@@ -64,6 +63,7 @@ public class PJH_PlayerFire : MonoBehaviour
                 g.GetComponent<PJH_Arrow>().Shoot(n);
                 print("명중입니다!!");
                 // 성공했다는 코드 작성
+                GameManager.instance.Success();
             }
             else
             {
@@ -71,6 +71,7 @@ public class PJH_PlayerFire : MonoBehaviour
                 g.GetComponent<PJH_Arrow>().Shoot(n);
                 print("실패입니다!!");
                 // 실패했다는 코드 작성
+                GameManager.instance.Failure();
             }
 
             B = false;
@@ -146,5 +147,10 @@ public class PJH_PlayerFire : MonoBehaviour
         
         //g.transform.forward = firePosition.forward;
         
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke(nameof(Reload));
     }
 }

@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
 
     public PlayerState playerState = PlayerState.Idle;
 
+    public PJH_PlayerFire playerFire;
+
     public void Idle()
     {
         if (playerState == PlayerState.Idle)
@@ -35,5 +37,8 @@ public class Player : MonoBehaviour
             return;
 
         playerState = PlayerState.Shot;
+
+        playerFire.ShootArrow();
+        playerState = PlayerState.Idle;
     }
 }

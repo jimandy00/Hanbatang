@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     private bool isStart = false;
 
     public Player player;
+    public Score score;
+    public PJH_PlayerFire playerFire;
+    public GameObject gauge;
 
     public int SuccessCount
     {
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        FadeInOut.instance.FadeInOrOut(true);
+        //FadeInOut.instance.FadeInOrOut(true);
     }
 
     public Player GameStart()
@@ -64,16 +67,20 @@ public class GameManager : MonoBehaviour
     {
         successCount++;
         PEA_UIManager.instance.ShowResultText(true);
+        score.O();
     }
 
     public void Failure()
     {
         PEA_UIManager.instance.ShowResultText(false);
+        score.X();
     }
 
     public void GameOver()
     {
         isStart = false;
+        playerFire.enabled = false;
+        gauge.SetActive(false);
     }
 
     public void IntoPicture()

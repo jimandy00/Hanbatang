@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // 게임시작 - Start
 // 준비 - Ready
@@ -33,7 +34,12 @@ public class Do : MonoBehaviour
         {
             case "start":
                 // 이미지 선택 함수 호출하기
-                clickImage.OnClickImg02();
+                if(SceneManager.GetActiveScene().buildIndex == 0)
+                    clickImage.OnClickImg02();
+                else
+                {
+                    GameManager.instance.GoToLobby();
+                }
                 break;
 
             case "ready":
