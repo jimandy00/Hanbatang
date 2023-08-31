@@ -11,6 +11,8 @@ public class ClickImage : MonoBehaviour
     public Image imgGo02;
     public GameObject des;
 
+    public GameManager gm;
+
     RectTransform img01;
     RectTransform img02;
     RectTransform img03;
@@ -31,6 +33,7 @@ public class ClickImage : MonoBehaviour
         //description.gameObject.SetActive(false);
 
         des.SetActive(false);
+        gm = new GameManager();
     }
 
     void Update()
@@ -59,6 +62,7 @@ public class ClickImage : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Alpha9))
             {
                 // 게임 시작
+                gm.IntoPicture();
             }
 
         }
