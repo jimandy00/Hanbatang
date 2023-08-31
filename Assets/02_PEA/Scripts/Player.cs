@@ -16,6 +16,19 @@ public class Player : MonoBehaviour
 
     public PJH_PlayerFire playerFire;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Ready();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            Shot();
+        }
+    }
+
     public void Idle()
     {
         if (playerState == PlayerState.Idle)
@@ -26,11 +39,14 @@ public class Player : MonoBehaviour
 
     public void Ready()
     {
-        if (playerState != PlayerState.Idle)
+        if (playerState != PlayerState.Idle && playerFire.canReady)
             return;
 
         playerState = PlayerState.Ready;
+
         print("ready");
+
+        playerFire.Ready();
     }
 
     public void Shot()

@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //FadeInOut.instance.FadeInOrOut(true);
+        Do.instance.GetPlayer(player);
     }
 
     public Player GameStart()
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     public void Shoot()
     {
+        print("gm shoot");
         shootCount++;
         if(shootCount >= shootChance)
         {

@@ -49,7 +49,7 @@ public class UDPReceive : MonoBehaviour
                 data = Encoding.UTF8.GetString(dataByte);
                 if (printToConsole) { print(data); }
 
-                //Do.instance.GetData(data);
+                Do.instance.GetData(data);
             }
             catch (Exception err)
             {
