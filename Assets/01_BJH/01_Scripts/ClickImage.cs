@@ -106,7 +106,7 @@ public class ClickImage : MonoBehaviour
 
         while (imgGo02.transform.position.z > -3.5)
         {
-            print("z : " + imgGo02.transform.position.z);
+            //print("z : " + imgGo02.transform.position.z);
             imgGo02.transform.position += dir * Time.deltaTime * speed;
             c.a -= 0.3f * Time.deltaTime;
             color.color = c;

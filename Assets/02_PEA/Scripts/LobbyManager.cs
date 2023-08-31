@@ -26,6 +26,7 @@ public class LobbyManager : MonoBehaviour
 
     public void IntoPicture()
     {
+        //FadeInOut.instance.FadeInOrOut(false, () => print("fadein"));
         FadeInOut.instance.FadeInOrOut(false, () => SceneManager.LoadScene(1));
     }
 }

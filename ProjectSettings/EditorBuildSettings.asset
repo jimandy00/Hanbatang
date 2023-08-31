@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/01_BJH/00_Scene/0831/PEA_TsetScene.unity
-    guid: 459c351cbb5ec634c9d54d02a98aceb1
+    path: Assets/00_Main/Scenes/Museum01.unity
+    guid: 97d7c5ecaf582c04b8b3b7b5b46f7193
   - enabled: 1
-    path: Assets/01_BJH/00_Scene/0831/PEA_TestScene2.unity
-    guid: e95c81ccf7f79ff4abedc7e91cbee05c
+    path: Assets/00_Main/Scenes/Traditional Archery Range 1.unity
+    guid: 769bd5bf9e4312e42a78961467ad65e5
   m_configObjects: {}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FadeInOut : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class FadeInOut : MonoBehaviour
     {
         if(coroutine == null)
         {
-            coroutine = StartCoroutine(IFadeInOut(isFadeIn));
+            coroutine = StartCoroutine(IFadeInOut(isFadeIn, action));
         }
     }
 
@@ -65,7 +66,14 @@ public class FadeInOut : MonoBehaviour
             }
         }
 
+        print("coroutine end");
         coroutine = null;
-        yield return action;
+        if(action != null)
+        {
+            print("action");
+            action();
+        }
+        print("yield return null");
+        yield return null;
     }
 }
