@@ -12,6 +12,7 @@ public class Do : MonoBehaviour
     public static Do instance = null;
 
     private Player player = null;
+    private ClickImage clickImage;
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class Do : MonoBehaviour
         {
             case "start":
                 // 이미지 선택 함수 호출하기
+                clickImage.OnClickImg02();
                 break;
 
             case "ready":
