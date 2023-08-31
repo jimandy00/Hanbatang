@@ -12,14 +12,9 @@ public class PJH_PlayerFire : MonoBehaviour
     public GameObject arrowSimple;
     // 불화살
     public GameObject arrowFire;
-    // 물화살
-    public GameObject arrowWater;
-    // 용화살
-    public GameObject arrowDragon;
+    
     // 화살 나가는곳
     public Transform firePosition;
-    // 화살 속도 (성공/실패)
-    private int arrowSpeed = 20;
     // 임시 게이지
     public Scrollbar point;
     // 화살이 장전되었는가?
@@ -56,10 +51,10 @@ public class PJH_PlayerFire : MonoBehaviour
         {
             audioSource02.Play();
             GameManager.instance.Shoot();
-            //게이지가 0.6 이상 0.7 이하일때 퍼펙트
-            if (point.value >= 0.6 && point.value <= 0.7) 
+            //게이지가 0.55 이상 0.74 이하일때 퍼펙트
+            if (point.value >= 0.55 && point.value <= 0.74) 
             {
-                float n = 40;
+                float n = 70;
                 g.GetComponent<PJH_Arrow>().Shoot(n);
                 print("명중입니다!!");
                 // 성공했다는 코드 작성
@@ -67,7 +62,7 @@ public class PJH_PlayerFire : MonoBehaviour
             }
             else
             {
-                float n = 10;
+                float n = 50;
                 g.GetComponent<PJH_Arrow>().Shoot(n);
                 print("실패입니다!!");
                 // 실패했다는 코드 작성
@@ -98,6 +93,7 @@ public class PJH_PlayerFire : MonoBehaviour
     public void SelectArrow(int arrowNum)
     {
         switch (arrowNum)
+
         {
             case 1:
                 B = false;
@@ -115,21 +111,6 @@ public class PJH_PlayerFire : MonoBehaviour
                 Reload();
                 break;
 
-            case 3:
-                B = false;
-                currentTime = 0;
-                point.value = 0;
-                arrow = arrowWater;
-                Reload();
-                break;
-
-            case 4:
-                B = false;
-                currentTime = 0;
-                point.value = 0;
-                arrow = arrowDragon;
-                Reload();
-                break;
         }
     }
 
