@@ -30,34 +30,42 @@ public class Do : MonoBehaviour
 
     public void GetData(string data)
     {
-        switch (data)
+        if (data.Contains("1") || data.Contains("2") || data.Contains("3") || data.Contains("4"))
         {
-            case "start":
-                // 이미지 선택 함수 호출하기
-                if(SceneManager.GetActiveScene().buildIndex == 0)
-                    clickImage.OnClickImg02();
-                else
-                {
-                    GameManager.instance.GoToLobby();
-                }
-                break;
+            player.ChangeArrow(int.Parse(data));
+        }
+        else
+        {
+            switch (data)
+            {
+                case "start":
+                    // 이미지 선택 함수 호출하기
+                    if(SceneManager.GetActiveScene().buildIndex == 0)
+                        clickImage.OnClickImg02();
+                    else
+                    {
+                        GameManager.instance.GoToLobby();
+                    }
+                    break;
 
-            case "ready":
-                if(player != null)
-                {
-                    player.Ready();
-                }
-                break;
+                case "ready":
+                    if(player != null)
+                    {
+                        player.Ready();
+                    }
+                    break;
 
-            case "shot":
-                if(player != null)
-                {
-                    player.Shot();
-                }
-                break;
+                case "shot":
+                    if(player != null)
+                    {
+                        player.Shot();
+                    }
+                    break;
 
-            case "change":
-                break;
+                case "change":
+                    player.ChangeArrow();
+                    break;
+            }
         }
     }
 }

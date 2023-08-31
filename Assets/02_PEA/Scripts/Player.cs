@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
     {
         Idle,
         Ready,
-        Shot
+        Shot,
+        ChangeArrow
     }
 
     public PlayerState playerState = PlayerState.Idle;
@@ -43,5 +44,18 @@ public class Player : MonoBehaviour
 
         playerFire.ShootArrow();
         Idle();
+    }
+
+    public void ChangeArrow(int arrowNum = 0)
+    {
+        if(arrowNum == 0)
+        {
+            playerState = PlayerState.ChangeArrow;
+        }
+        else if (playerState == PlayerState.ChangeArrow)
+        {
+            playerFire.SelectArrow(arrowNum);
+            playerState = PlayerState.Idle;
+        }
     }
 }

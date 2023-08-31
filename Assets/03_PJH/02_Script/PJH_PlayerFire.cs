@@ -44,8 +44,8 @@ public class PJH_PlayerFire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SelectArrow();
-        ShootArrow();
+        //SelectArrow();
+        //ShootArrow();
         StartCoroutine(PerfectZone()); 
     }
 
@@ -95,49 +95,50 @@ public class PJH_PlayerFire : MonoBehaviour
     }
     
     //화살 종류 선택
-    private void SelectArrow()
+    public void SelectArrow(int arrowNum)
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {            
-            B = false;
-            currentTime = 0;
-            point.value = 0;
-            arrow = arrowSimple;
-            Reload();            
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {            
-            B = false;
-            currentTime = 0;
-            point.value = 0;
-            arrow = arrowFire;
-            Reload();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {          
-            B = false;
-            currentTime = 0;
-            point.value = 0;
-            arrow = arrowWater;
-            Reload();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {            
-            B = false;
-            currentTime = 0;
-            point.value = 0;
-            arrow = arrowDragon;
-            Reload();
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        switch (arrowNum)
         {
-            B = true;
-            currentTime = 0;
-            point.value = 0;
-            audioSource01.Play();
-        }
+            case 1:
+                B = false;
+                currentTime = 0;
+                point.value = 0;
+                arrow = arrowSimple;
+                Reload();
+                break;
 
+            case 2:
+                B = false;
+                currentTime = 0;
+                point.value = 0;
+                arrow = arrowFire;
+                Reload();
+                break;
+
+            case 3:
+                B = false;
+                currentTime = 0;
+                point.value = 0;
+                arrow = arrowWater;
+                Reload();
+                break;
+
+            case 4:
+                B = false;
+                currentTime = 0;
+                point.value = 0;
+                arrow = arrowDragon;
+                Reload();
+                break;
+        }
+    }
+
+    public void Ready()
+    {
+        B = true;
+        currentTime = 0;
+        point.value = 0;
+        audioSource01.Play();
     }
 
     private void Reload()
