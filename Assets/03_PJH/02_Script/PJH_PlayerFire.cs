@@ -15,28 +15,30 @@ public class PJH_PlayerFire : MonoBehaviour
     public GameObject arrowWater;
     // 용화살
     public GameObject arrowDragon;
-    // 퍼펙트 존 파워게이지
-    private int powerGauge = 0;
     // 화살 나가는곳
     public Transform firePosition;
     // 화살 속도 (성공/실패)
     private int arrowSpeed = 20;
     // 임시 게이지
-    public Image point;
-    GameObject cube;
-
+    public Scrollbar point;
+    // 화살을 안쐈는가?
+    bool B = false;
+    //
+    
 
     void Start()
     {
         arrow = arrowSimple;
-        PerfectZone();
+        //PerfectZone();
+        //StartCoroutine(PerfectZone());
     }
 
     // Update is called once per frame
     void Update()
     {
         SelectArrow();
-        ShootArrow();        
+        ShootArrow();
+        StartCoroutine(PerfectZone()); 
     }
 
     private void ShootArrow()
@@ -45,53 +47,83 @@ public class PJH_PlayerFire : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             //arrow 발사
-            GameObject g = Instantiate(arrow);
-            g.transform.position = firePosition.position;
-            g.transform.forward = firePosition.forward;
+                      
 
-            //게이지가 40 이상 60 이하일때 퍼펙트
-            if (cube.transform.position.y > 40 && cube.transform.position.y < 60) 
+            //게이지가 0.6 이상 0.7 이하일때 퍼펙트
+            if (point.value >= 0.6 && point.value <= 0.7) 
             {
-                g.GetComponent<PJH_Arrow>().speed = 20;
+                //g.GetComponent<PJH_Arrow>().speed = 50;
                 print("명중입니다!!");
                 // 성공했다는 코드 작성
             }
             else
             {
-                g.GetComponent<PJH_Arrow>().speed = 10;
+                //g.GetComponent<PJH_Arrow>().speed = 10;
                 print("실패입니다!!");
                 // 실패했다는 코드 작성
             }
+            B = false;
             
-            
-
         }
     }
 
-    private void PerfectZone()
+    //PerfectZone 움직이는 함수
+    IEnumerator PerfectZone()
     {
-        //point.rectTransform.position = new Vector2(Mathf.PingPong(Time.time, 240),0);
-        //cube.transform.position = new Vector3( cube.transform.position.x, Mathf.PingPong(Time.time, 10), cube.transform.position.z);
+        if (B == true)
+        {
+            point.value = Mathf.PingPong(Time.time, 0.943f);
+            
+            yield return new WaitForSecondsRealtime(0.01f);
+        }
+        
     }
-
+    
+    //화살 종류 선택
     private void SelectArrow()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            Destroy(arrow);
+            B = false;
+            point.value = 0f;
             arrow = arrowSimple;
+            GameObject g = Instantiate(arrow);
+            g.transform.position = firePosition.position;
+            B = true;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            Destroy(arrow);
+            B = false;
+            point.value = 0f;
             arrow = arrowFire;
+            GameObject g = Instantiate(arrow);
+            g.transform.position = firePosition.position;
+            B = true;
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            Destroy(arrow);
+            B = false;
+            point.value = 0f;
             arrow = arrowWater;
+            GameObject g = Instantiate(arrow);
+            g.transform.position = firePosition.position;
+            B = true;
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
+            Destroy(arrow);
+            B = false;
+            point.value = 0f;
             arrow = arrowDragon;
+            GameObject g = Instantiate(arrow);
+            g.transform.position = firePosition.position;
+            B = true;
         }
 
     }
+
+    
 }
