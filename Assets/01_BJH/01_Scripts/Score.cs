@@ -71,7 +71,7 @@ public class Score : MonoBehaviour
     // 최종 점수 UI 멋지게 등장하기
     IEnumerator coCTS()
     {
-        while(
+        // 
         yield return null;
     }
 }
