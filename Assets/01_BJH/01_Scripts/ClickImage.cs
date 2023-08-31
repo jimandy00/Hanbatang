@@ -11,14 +11,14 @@ public class ClickImage : MonoBehaviour
     public Image imgGo02;
     public GameObject des;
 
-    public GameManager gm;
-
     RectTransform img01;
     RectTransform img02;
     RectTransform img03;
 
     public GameObject typingGo;
 
+
+    Image color;
 
     Text description;
 
@@ -35,8 +35,11 @@ public class ClickImage : MonoBehaviour
         //description.gameObject.SetActive(false);
 
         des.SetActive(false);
-        gm = new GameManager();
         typingGo.SetActive(false);
+
+        color = imgGo02.GetComponent<Image>();
+
+        
     }
 
     void Update()
@@ -65,8 +68,10 @@ public class ClickImage : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Alpha9))
             {
-                // 게임 시작
-                gm.IntoPicture();
+                //ImgMaxSize02();
+                c = color.color;
+                StartCoroutine(CoImgMaxSize());
+
             }
 
         }
@@ -90,6 +95,28 @@ public class ClickImage : MonoBehaviour
             IsCliked = false;
         }
     }
+
+    Color c;
+
+    IEnumerator CoImgMaxSize()
+    {
+        print("이미지를 입장 사이즈로 변경하는 중1");
+        while (imgGo02.rectTransform.localScale.x <= 6.0f)
+        {
+            print("이미지를 입장 사이즈로 변경하는 중2");
+            imgGo02.rectTransform.localScale += Vector3.one * Time.deltaTime;
+            c.a -= 0.1f * Time.deltaTime;
+            color.color = c;
+            yield return new WaitForEndOfFrame();
+        }
+
+        LobbyManager.instance.IntoPicture();
+    }
+
+    //void ImgMaxSize02()
+    //{
+    //    StartCoroutine(CoImgMaxSize());
+    //}
 
 
 }
