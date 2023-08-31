@@ -66,14 +66,11 @@ public class FadeInOut : MonoBehaviour
             }
         }
 
-        print("coroutine end");
         coroutine = null;
         if(action != null)
         {
-            print("action");
             action();
         }
-        print("yield return null");
         yield return null;
     }
 }

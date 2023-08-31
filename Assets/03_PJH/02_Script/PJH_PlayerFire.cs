@@ -28,12 +28,15 @@ public class PJH_PlayerFire : MonoBehaviour
     public AudioSource audioSource01; // 활 당기기
     public AudioSource audioSource02; // 활 쏘기
 
+    public bool canReady = false;
+
 
     void Start()
     {
+        SelectArrow(1);
         point.value = 0;
         arrow = arrowSimple;
-        
+        canReady = true;
     }
 
     // Update is called once per frame
@@ -41,39 +44,36 @@ public class PJH_PlayerFire : MonoBehaviour
     {
         //SelectArrow();
         //ShootArrow();
-        StartCoroutine(PerfectZone()); 
+        StartCoroutine(PerfectZone());
     }
 
     public  void ShootArrow()
     {
-        //좌클릭시 발사 (양옆으로 핀다)
-        if (Input.GetButtonDown("Fire1"))
+        print("shootArrow");
+        canReady = false;
+        audioSource02.Play();
+        GameManager.instance.Shoot();
+        //게이지가 0.55 이상 0.74 이하일때 퍼펙트
+        if (point.value >= 0.55 && point.value <= 0.74)
         {
-            audioSource02.Play();
-            GameManager.instance.Shoot();
-            //게이지가 0.55 이상 0.74 이하일때 퍼펙트
-            if (point.value >= 0.55 && point.value <= 0.74) 
-            {
-                float n = 70;
-                g.GetComponent<PJH_Arrow>().Shoot(n);
-                print("명중입니다!!");
-                // 성공했다는 코드 작성
-                GameManager.instance.Success();
-            }
-            else
-            {
-                float n = 50;
-                g.GetComponent<PJH_Arrow>().Shoot(n);
-                print("실패입니다!!");
-                // 실패했다는 코드 작성
-                GameManager.instance.Failure();
-            }
-
-            B = false;
-            // 자동 재장전
-            Invoke(nameof(Reload), 3);
-
+            float n = 70;
+            g.GetComponent<PJH_Arrow>().Shoot(n);
+            print("명중입니다!!");
+            // 성공했다는 코드 작성
+            GameManager.instance.Success();
         }
+        else
+        {
+            float n = 50;
+            g.GetComponent<PJH_Arrow>().Shoot(n);
+            print("실패입니다!!");
+            // 실패했다는 코드 작성
+            GameManager.instance.Failure();
+        }
+
+        B = false;
+        // 자동 재장전
+        Invoke(nameof(Reload), 3);
     }
 
     
@@ -116,6 +116,7 @@ public class PJH_PlayerFire : MonoBehaviour
 
     public void Ready()
     {
+        print("fire ready");
         B = true;
         currentTime = 0;
         point.value = 0;
@@ -124,8 +125,13 @@ public class PJH_PlayerFire : MonoBehaviour
 
     private void Reload()
     {
+        if(g != null)
+        {
+            Destroy(g);
+        }
         g = Instantiate(arrow);
         g.transform.position = firePosition.position;
+        canReady = true;
         
         //g.transform.forward = firePosition.forward;
         

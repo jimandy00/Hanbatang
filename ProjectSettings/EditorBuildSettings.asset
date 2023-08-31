@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/00_Main/Scenes/Museum01.unity
     guid: 97d7c5ecaf582c04b8b3b7b5b46f7193
   - enabled: 1
-    path: Assets/00_Main/Scenes/Traditional Archery Range 1.unity
-    guid: 769bd5bf9e4312e42a78961467ad65e5
+    path: Assets/00_Main/Scenes/Test.unity
+    guid: c72709702e5b227409dea510ab2082af
   m_configObjects: {}

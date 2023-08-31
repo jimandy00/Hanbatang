@@ -13,7 +13,7 @@ public class Do : MonoBehaviour
     public static Do instance = null;
 
     private Player player = null;
-    private ClickImage clickImage;
+    public ClickImage clickImage;
 
     private void Awake()
     {
@@ -28,9 +28,20 @@ public class Do : MonoBehaviour
         }
     }
 
-    public void GetData(string data)
+    private void Start()
     {
-        if (data.Contains("1") || data.Contains("2") || data.Contains("3") || data.Contains("4"))
+
+    }
+
+    public void GetPlayer(Player p)
+    {
+        player = p;
+        print("get Player");
+    }
+
+    private void Update()
+    {
+        if (data.Contains("1") || data.Contains("2"))
         {
             player.ChangeArrow(int.Parse(data));
         }
@@ -39,33 +50,38 @@ public class Do : MonoBehaviour
             switch (data)
             {
                 case "start":
-                    // 이미지 선택 함수 호출하기
-                    if(SceneManager.GetActiveScene().buildIndex == 0)
-                        clickImage.OnClickImg02();
-                    else
-                    {
-                        GameManager.instance.GoToLobby();
-                    }
+                    print("start");
+                    clickImage.OnClickImg02();
                     break;
 
                 case "ready":
-                    if(player != null)
+                    if (player != null)
                     {
                         player.Ready();
                     }
                     break;
 
                 case "shot":
-                    if(player != null)
+                    if (player != null)
                     {
                         player.Shot();
                     }
                     break;
 
                 case "change":
-                    player.ChangeArrow();
+                    if (player != null)
+                    {
+                        player.ChangeArrow();
+                    }
                     break;
             }
         }
+    }
+
+    public string data;
+
+    public void GetData(string data2)
+    {
+        data = data2;        
     }
 }

@@ -17,6 +17,8 @@ public class ClickImage : MonoBehaviour
 
     public GameObject typingGo;
 
+    private Coroutine coroutine = null;
+
     float speed = 5f;
 
     Image color;
@@ -29,6 +31,10 @@ public class ClickImage : MonoBehaviour
 
     bool IsCliked  = false;
     bool imgState = false;
+    bool isMoveToCam = false;
+    bool canMove = false;
+    private Vector3 dir = Vector3.zero;
+    
 
     void Start()
     {
@@ -40,7 +46,8 @@ public class ClickImage : MonoBehaviour
 
         color = imgGo02.GetComponent<Image>();
 
-        
+        dir = Camera.main.transform.position - imgGo02.transform.position;
+        dir.Normalize(); // 정규화. 벡터의 크기를 1로
     }
 
     void Update()
@@ -70,30 +77,88 @@ public class ClickImage : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Alpha9))
             {
                 //ImgMaxSize02();
-                c = color.color;
-                StartCoroutine(CoImgMaxSize());
+                //c = color.color;
+                //StartCoroutine(CoImgMaxSize());
+                MoveToCam();
 
             }
+        }
 
+        if (isMoveToCam)
+        {
+            ImgMaxSize();
         }
     }
 
 
     public void OnClickImg02()
     {
-        IsCliked = true;
+        print(IsCliked);
+        if(IsCliked == false)
+        {
+            IsCliked = true;
+        }
+        else
+        {
+            if (!isMoveToCam && canMove)
+            {
+                print("movetocam");
+                c = color.color;                
+                isMoveToCam = true;
+            }
+        }
+    }
 
+    public void MoveToCam()
+    {
+        //if (coroutine == null)
+        //{
+        //    print("startcoroutine");
+        //    c = color.color;
+        //    coroutine = StartCoroutine(CoImgMaxSize());
+        //}
+
+        if (!isMoveToCam)
+        {
+            print("movetocam");
+            c = color.color;
+            dir = Camera.main.transform.position - imgGo02.transform.position;
+            dir.Normalize(); // 정규화. 벡터의 크기를 1로
+            //StartCoroutine(CoImgMaxSize());
+            isMoveToCam = true;
+        }
     }
 
     void ImgForward02()
     {
-
         // 선택된 이미지의 크기를 키움
         imgGo02.rectTransform.localScale += Vector3.one * Time.deltaTime;
         if (imgGo02.rectTransform.localScale.x >= 2.5f)
         {
             imgState = true;
-            IsCliked = false;
+            //IsCliked = false;
+            Invoke(nameof(CanMove), 0.5f);
+        }
+    }
+
+    private void CanMove()
+    {
+        canMove = true;
+    }
+
+    private void ImgMaxSize()
+    {
+
+        if(imgGo02.transform.position.z <= -3.5)
+        {
+            LobbyManager.instance.IntoPicture();
+        }
+        else
+        {
+            //print("z : " + imgGo02.transform.position.z);
+            imgGo02.transform.position += dir * Time.deltaTime * speed;
+            c.a -= 0.3f * Time.deltaTime;
+            color.color = c;
         }
     }
 
@@ -101,11 +166,13 @@ public class ClickImage : MonoBehaviour
 
     IEnumerator CoImgMaxSize()
     {
+        print("111111111");
         Vector3 dir = Camera.main.transform.position - imgGo02.transform.position;
         dir.Normalize(); // 정규화. 벡터의 크기를 1로
 
         while (imgGo02.transform.position.z > -3.5)
         {
+            print("22222222222");
             //print("z : " + imgGo02.transform.position.z);
             imgGo02.transform.position += dir * Time.deltaTime * speed;
             c.a -= 0.3f * Time.deltaTime;
@@ -113,6 +180,7 @@ public class ClickImage : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
+        print("333333333333");
         LobbyManager.instance.IntoPicture();
     }
 
@@ -120,6 +188,4 @@ public class ClickImage : MonoBehaviour
     //{
     //    StartCoroutine(CoImgMaxSize());
     //}
-
-
 }
