@@ -108,6 +108,9 @@ public class PEA_UIManager : MonoBehaviour
             targetText.transform.localScale -= Vector3.one * scaleSpeed * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+
+        coroutine = null;
+        yield return null;
     }
 
     IEnumerator IDisappearChangeText(GameObject targetText)
@@ -123,5 +126,8 @@ public class PEA_UIManager : MonoBehaviour
             targetText.transform.localScale -= Vector3.one * scaleSpeed * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+
+        coroutine = null;
+        yield return null;
     }
 }
