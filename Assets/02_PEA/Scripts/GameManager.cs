@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //FadeInOut.instance.FadeInOrOut(true);
+        FadeInOut.instance.FadeInOrOut(true);
         Do.instance.GetPlayer(player);
     }
 
