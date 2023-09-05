@@ -122,6 +122,10 @@ public class PJH_PlayerFire : MonoBehaviour
 
     private void Reload()
     {
+        if (g != null)
+        {
+            Destroy(g);
+        }
         g = Instantiate(arrow);
         g.transform.position = firePosition.position;
         
